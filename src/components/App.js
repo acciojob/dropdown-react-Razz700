@@ -141,9 +141,88 @@ const states = [{
 function App() 
 {
 	// Do not alter/remove main div
+	const [city,setcity]=useState([]);
+	const handlechange=(e)=>{
+		console.log(e.target.value);
+		const stateSelelcted=e.target.value;
+		const arr=states[stateSelelcted].city;
+		setarr(arr=>{
+			const temp=[...arr];
+			temp[0].name=states[stateSelelcted].name;
+			temp[0].description=states[stateSelelcted].description;
+			return temp;
+		});
+		setcity(arr);
+	}
+	const [landmark,setlandmark]=useState([]);
+	const handlechangecity=(e)=>{
+		console.log(e.target.value);
+		const citySelelcted=e.target.value;
+		const arr=city[citySelelcted].landmarks;
+		setlandmark(arr);
+		setarr(arr=>{
+			const temp=[...arr];
+			////////////////////////////////////////////
+			const arr1=states.filter((item)=>item.name==temp[0].name);
+			temp[1].name=arr1[0].city[citySelelcted].name;
+			temp[1].description=arr1[0].city[citySelelcted].description;
+			return temp;
+		});
+	
+	}
+	const [arr,setarr]=useState([
+		{name:states[0].name,description:states[0].description},
+		{name:states[0].city[0].name,description:states[0].city[0].description},
+		{name:states[0].city[0].landmarks[0].name,description:states[0].city[0].landmarks[0].description}
+	]);
+	const handlechangelandmark=(e)=>{
+        const landmarkselected=e.target.value;
+		console.log(e.target.value);
+		 setarr(arr=>{
+			const temp=[...arr];
+			const arr1=states.filter((item)=>item.name==temp[0].name);
+			const arr2=arr1[0].city.filter((item)=>item.name==temp[1].name);
+			temp[2].name=arr2[0].landmarks[landmarkselected].name;
+			temp[2].description=arr2[0].landmarks[landmarkselected].description;
+			return temp;
+		 })
+		
+	}
 	return (
 	<div id="main">
-		
+		<div>
+			<select onChange={handlechange} id="state">
+				<option value='' style={{display:'none'}} >states</option>
+				{states.map((item,i)=>{
+					return <option value={i} key={i}>{item.name}</option>
+				})}
+			</select>
+			
+			 <select onChange={handlechangecity} id="city">
+				<option value='' style={{display:'none'}}>City</option>
+				{city.map((item,i)=>{
+				return	<option value={i} key={i+'a'}>{item.name}</option>
+				})}
+			</select> 
+			<select id="landmark" onChange={handlechangelandmark}>
+				<option value='' style={{display:'none'}}>Landmark</option>
+				{landmark.map((item,i)=>{
+				return	<option value={i} key={i+'a'}>{item.name}</option>
+				})}
+			</select> 
+		</div>
+		<div className="details">
+          <div id="state-name" style={{fontWeight:'700'}}>{arr[0].name}</div>
+		  <div id="state-description">{arr[0].description}</div>
+		</div>
+		<div className="details">
+          <div id="city-name" style={{fontWeight:'700'}}>{arr[1].name}</div>
+		  <div id="city-description">{arr[1].description}</div>
+		</div>
+		<div className="details">
+          <div id="landmark-name" style={{fontWeight:'700'}}>{arr[2].name}</div>
+		  <div id="landmark-description">{arr[2].description}</div>
+		</div>
 	</div>
 	);
 }
