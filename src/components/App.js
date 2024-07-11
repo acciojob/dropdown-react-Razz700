@@ -141,22 +141,35 @@ const states = [{
 function App() 
 {
 	// Do not alter/remove main div
-	const [city,setcity]=useState([]);
+	const [city,setcity]=useState(states[0].city);
+	const [arr,setarr]=useState([
+		{name:states[0].name,description:states[0].description},
+		{name:states[0].city[0].name,description:states[0].city[0].description},
+		{name:states[0].city[0].landmarks[0].name,description:states[0].city[0].landmarks[0].description}
+	]);
+	const [landmark,setlandmark]=useState(states[0].city[0].landmarks);
 	const handlechange=(e)=>{
+		e.preventDefault();
 		console.log(e.target.value);
 		const stateSelelcted=e.target.value;
 		const arr=states[stateSelelcted].city;
+		setcity(arr);
+		setlandmark(arr[0].landmarks);
 		setarr(arr=>{
 			const temp=[...arr];
 			temp[0].name=states[stateSelelcted].name;
 			temp[0].description=states[stateSelelcted].description;
+			temp[1].name=states[stateSelelcted].city[0].name;
+			temp[1].description=states[stateSelelcted].city[0].description;
+			temp[2].name=states[stateSelelcted].city[0].landmarks[0].name;
+			temp[2].description=states[stateSelelcted].city[0].landmarks[0].description;
 			return temp;
 		});
-		setcity(arr);
+		
 	}
-	const [landmark,setlandmark]=useState([]);
 	const handlechangecity=(e)=>{
 		console.log(e.target.value);
+		e.preventDefault();
 		const citySelelcted=e.target.value;
 		const arr=city[citySelelcted].landmarks;
 		setlandmark(arr);
@@ -166,17 +179,16 @@ function App()
 			const arr1=states.filter((item)=>item.name==temp[0].name);
 			temp[1].name=arr1[0].city[citySelelcted].name;
 			temp[1].description=arr1[0].city[citySelelcted].description;
+			temp[2].name=arr1[0].city[0].landmarks[0].name;
+			temp[2].description=arr1[0].city[0].landmarks[0].description;
 			return temp;
 		});
 	
 	}
-	const [arr,setarr]=useState([
-		{name:states[0].name,description:states[0].description},
-		{name:states[0].city[0].name,description:states[0].city[0].description},
-		{name:states[0].city[0].landmarks[0].name,description:states[0].city[0].landmarks[0].description}
-	]);
+	
 	const handlechangelandmark=(e)=>{
         const landmarkselected=e.target.value;
+		e.preventDefault();
 		console.log(e.target.value);
 		 setarr(arr=>{
 			const temp=[...arr];
@@ -192,21 +204,30 @@ function App()
 	<div id="main">
 		<div>
 			<select onChange={handlechange} id="state">
-				<option value='' style={{display:'none'}} >states</option>
+				{/* <option value='' style={{display:'none'}} >states</option> */}
 				{states.map((item,i)=>{
+					if (i==0) {
+						return <option value={i} key={i} selected>{item.name}</option>
+					}
 					return <option value={i} key={i}>{item.name}</option>
 				})}
 			</select>
 			
 			 <select onChange={handlechangecity} id="city">
-				<option value='' style={{display:'none'}}>City</option>
+				{/* <option value='' style={{display:'none'}}>City</option> */}
 				{city.map((item,i)=>{
+					if (i==0) {
+					return <option selected value={i} key={i+'a'}>{item.name}</option>
+					}
 				return	<option value={i} key={i+'a'}>{item.name}</option>
 				})}
 			</select> 
 			<select id="landmark" onChange={handlechangelandmark}>
-				<option value='' style={{display:'none'}}>Landmark</option>
+				{/* <option value='' style={{display:'none'}}>Landmark</option> */}
 				{landmark.map((item,i)=>{
+					if (i==0) {
+						return <option selected value={i} key={i+'a'}>{item.name}</option>
+					}
 				return	<option value={i} key={i+'a'}>{item.name}</option>
 				})}
 			</select> 
