@@ -232,7 +232,7 @@ function App()
 				})}
 			</select> 
 		</div>
-		<div className="details">
+		<div className="details" id="state-title">
           <div id="state-name" style={{fontWeight:'700'}}>{arr[0].name}</div>
 		  <div id="state-description">{arr[0].description}</div>
 		</div>
