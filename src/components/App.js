@@ -237,11 +237,11 @@ function App()
 		  <div id="state-description">{arr[0].description}</div>
 		</div>
 		<div className="details">
-          <div id="city-name" style={{fontWeight:'700'}}>{arr[1].name}</div>
+          <div id="city-title" style={{fontWeight:'700'}}>{arr[1].name}</div>
 		  <div id="city-description">{arr[1].description}</div>
 		</div>
 		<div className="details">
-          <div id="landmark-name" style={{fontWeight:'700'}}>{arr[2].name}</div>
+          <div id="landmark-title" style={{fontWeight:'700'}}>{arr[2].name}</div>
 		  <div id="landmark-description">{arr[2].description}</div>
 		</div>
 	</div>
