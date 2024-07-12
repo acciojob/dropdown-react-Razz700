@@ -7,7 +7,7 @@ const states = [{
 	description:"Madhya Pradesh, a large state in central India, retains landmarks from eras throughout Indian history.",
 	city :[{
 		name : "Indore",
-		description:"Indore is a city in west-central India. It’s known for the 7-story Rajwada Palace and the Lal Baag Palace, which date back to Indore’s 19th-century Holkar dynasty.",
+		description:"Indore is a city in west-central India. It\’s known for the 7-story Rajwada Palace and the Lal Baag Palace, which date back to Indore\’s 19th-century Holkar dynasty.",
 		landmarks :[{
 			name : "Mhow",
 			description:"Dr. Ambedkar Nagar, commonly known as Mhow, is a cantonment in the Indore district in Madhya Pradesh state of India. It is located 23 kilometres south-west of Indore city, towards Mumbai on the old Mumbai-Agra Road.",				
@@ -165,7 +165,7 @@ function App()
 			temp[2].description=states[stateSelelcted].city[0].landmarks[0].description;
 			return temp;
 		});
-		
+		setselelctedarr([stateSelelcted,0,0])
 	}
 	const handlechangecity=(e)=>{
 		console.log(e.target.value);
@@ -177,13 +177,19 @@ function App()
 			const temp=[...arr];
 			////////////////////////////////////////////
 			const arr1=states.filter((item)=>item.name==temp[0].name);
+			console.log(arr1);
 			temp[1].name=arr1[0].city[citySelelcted].name;
 			temp[1].description=arr1[0].city[citySelelcted].description;
-			temp[2].name=arr1[0].city[0].landmarks[0].name;
-			temp[2].description=arr1[0].city[0].landmarks[0].description;
+			temp[2].name=arr1[0].city[citySelelcted].landmarks[0].name;
+			temp[2].description=arr1[0].city[citySelelcted].landmarks[0].description;
 			return temp;
 		});
-	
+	setselelctedarr(selectedarr=>{
+		const temp=[...selectedarr];
+		temp[1]=citySelelcted;
+		temp[2]=0;
+		return temp;
+	})
 	}
 	
 	const handlechangelandmark=(e)=>{
@@ -198,12 +204,17 @@ function App()
 			temp[2].description=arr2[0].landmarks[landmarkselected].description;
 			return temp;
 		 })
-		
+		setselelctedarr(selectedarr=>{
+			const temp=[...selectedarr];
+			temp[2]=landmarkselected;
+			return temp;
+		})
 	}
+	const [selectedarr,setselelctedarr]=useState([0,0,0]);
 	return (
 	<div id="main">
 		<div>
-			<select onChange={handlechange} id="state">
+			<select onChange={handlechange} value={selectedarr[0]} id="state">
 				{/* <option value='' style={{display:'none'}} >states</option> */}
 				{states.map((item,i)=>{
 					if (i==0) {
@@ -213,16 +224,17 @@ function App()
 				})}
 			</select>
 			
-			 <select onChange={handlechangecity} id="city">
+			 <select onChange={handlechangecity} value={selectedarr[1]} id="city">
 				{/* <option value='' style={{display:'none'}}>City</option> */}
 				{city.map((item,i)=>{
+					console.log('hi in city select');
 					if (i==0) {
 					return <option selected value={i} key={i+'a'}>{item.name}</option>
 					}
 				return	<option value={i} key={i+'a'}>{item.name}</option>
 				})}
 			</select> 
-			<select id="landmark" onChange={handlechangelandmark}>
+			<select id="landmark" value={selectedarr[2]} onChange={handlechangelandmark}>
 				{/* <option value='' style={{display:'none'}}>Landmark</option> */}
 				{landmark.map((item,i)=>{
 					if (i==0) {
