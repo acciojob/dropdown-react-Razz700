@@ -17,7 +17,7 @@ const states = [{
 		}]
 	},{
 		name : "Bhopal",
-		description:"DBhopal is a city in the central Indian state of Madhya Pradesh. It's one of India’s greenest city. There are two main lakes, the Upper Lake and the Lower Lake.",
+		description:"DBhopal is a city in the central Indian state of Madhya Pradesh. It\'s one of India\'s greenest city. There are two main lakes, the Upper Lake and the Lower Lake.",
 		landmarks :[{
 			name : "MANIT",
 			description:"Maulana Azad National Institute of Technology Bhopal is a public technical university located in Bhopal, Madhya Pradesh, India. It is part of a group of publicly funded institutions in India known as National Institutes of Technology. ",
@@ -217,9 +217,9 @@ function App()
 			<select onChange={handlechange} value={selectedarr[0]} id="state">
 				{/* <option value='' style={{display:'none'}} >states</option> */}
 				{states.map((item,i)=>{
-					if (i==0) {
-						return <option value={i} key={i} selected>{item.name}</option>
-					}
+					// if (i==0) {
+					// 	return <option value={i} key={i} selected>{item.name}</option>
+					// }
 					return <option value={i} key={i}>{item.name}</option>
 				})}
 			</select>
@@ -228,18 +228,18 @@ function App()
 				{/* <option value='' style={{display:'none'}}>City</option> */}
 				{city.map((item,i)=>{
 					console.log('hi in city select');
-					if (i==0) {
-					return <option selected value={i} key={i+'a'}>{item.name}</option>
-					}
+					// if (i==0) {
+					// return <option selected value={i} key={i+'a'}>{item.name}</option>
+					// }
 				return	<option value={i} key={i+'a'}>{item.name}</option>
 				})}
 			</select> 
 			<select id="landmark" value={selectedarr[2]} onChange={handlechangelandmark}>
 				{/* <option value='' style={{display:'none'}}>Landmark</option> */}
 				{landmark.map((item,i)=>{
-					if (i==0) {
-						return <option selected value={i} key={i+'a'}>{item.name}</option>
-					}
+					// if (i==0) {
+					// 	return <option selected value={i} key={i+'a'}>{item.name}</option>
+					// }
 				return	<option value={i} key={i+'a'}>{item.name}</option>
 				})}
 			</select> 
